@@ -38,27 +38,21 @@ class App extends Component {
     }
   }
 
-  addContact = (e, name, number) => {
-    e.preventDefault();
-
-    this.state.contacts.forEach((el) => {
-      if (el.name === name) {
-        this.setState({ isAdded: true });
-        setTimeout(() => {
-          this.setState({ isAdded: false });
-        }, 1000);
-        return;
-      }
-    });
-    if (this.state.isAdded) {
-      return;
+  addContact = (name, number) => {
+    const { contacts } = this.state;
+    if (contacts.find((el) => el.name === name)) {
+      this.setState({ isAdded: true });
+      setTimeout(() => {
+        this.setState({ isAdded: false });
+      }, 1000);
+    } else {
+      const item = {
+        id: uuid(),
+        name: name,
+        number: number,
+      };
+      this.setState((prevState) => ({ contacts: [...prevState.contacts, item] }));
     }
-    const item = {
-      id: uuid(),
-      name: name,
-      number: number,
-    };
-    this.setState((prevState) => ({ contacts: [...prevState.contacts, item], name: "", number: "" }));
   };
 
   handleChangeFilter = ({ value }) => {

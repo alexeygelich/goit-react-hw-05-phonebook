@@ -36,8 +36,9 @@ class FormAddContacts extends Component {
       <form
         className={styles.form}
         onSubmit={(e) => {
+          e.preventDefault();
+          addContact(nameApp, numberApp);
           this.handleClearForm();
-          return addContact(e, nameApp, numberApp);
         }}
       >
         <label className={styles.label}>
