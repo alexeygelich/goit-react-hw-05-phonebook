@@ -40,6 +40,9 @@ class App extends Component {
 
   addContact = (name, number) => {
     const { contacts } = this.state;
+    if (!name || !number) {
+      return;
+    }
     if (contacts.find((el) => el.name === name)) {
       this.setState({ isAdded: true });
       setTimeout(() => {
